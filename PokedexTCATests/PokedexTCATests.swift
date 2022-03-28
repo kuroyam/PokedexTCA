@@ -1,10 +1,3 @@
-//
-//  PokedexTCATests.swift
-//  PokedexTCATests
-//
-//  Created by Shun Kuroda on 2022/03/28.
-//
-
 import XCTest
 @testable import PokedexTCA
 
