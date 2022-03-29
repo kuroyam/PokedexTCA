@@ -1,42 +1,65 @@
-import Combine
+import ComposableArchitecture
 import SwiftUI
 
-struct ContentView: View {
-
-    init() {
-        fetch()
-    }
-
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
-
-    func fetch() {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon/1") else {
-            assertionFailure()
-            return
-        }
-
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else {
-                return
-            }
-
-            let pokemon = try! JSONDecoder().decode(Pokemon.self, from: data)
-            print(pokemon)
-        }
-        .resume()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
-struct Pokemon: Codable {
+struct Pokemon: Codable, Equatable, Identifiable {
     let id: Int
     let name: String
 }
+
+enum PokemonAction: Equatable {
+    case fetch(Int)
+    case fetchResponse(Result<Pokemon, PokeAPIClient.Failure>)
+}
+
+struct PokemonEnvironment {
+    var pokeAPIClient: PokeAPIClient
+    var mainQueue: AnySchedulerOf<DispatchQueue>
+}
+
+struct PokemonState: Equatable {
+    var pokemon: Pokemon?
+}
+
+let pokemonReducer = Reducer<PokemonState, PokemonAction, PokemonEnvironment> { state, action, environment in
+    switch action {
+    case .fetch(let id):
+        return environment.pokeAPIClient
+            .fetch(id)
+            .receive(on: environment.mainQueue)
+            .catchToEffect(PokemonAction.fetchResponse)
+
+    case .fetchResponse(.success(let pokemon)):
+        state.pokemon = pokemon
+        return .none
+
+    case .fetchResponse(.failure(_)):
+        // ここでエラーハンドリング
+        return .none
+
+    }
+}
+
+struct ContentView: View {
+
+    let store: Store<PokemonState, PokemonAction>
+
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+            VStack {
+                Text("No.\(viewStore.pokemon?.id ?? 0) \(viewStore.pokemon?.name ?? "")")
+                    .padding()
+                Button {
+                    viewStore.send(.fetch(25))
+                } label: {
+                    Text("無料でピカチュウをゲット")
+                }
+            }
+        }
+    }
+}
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

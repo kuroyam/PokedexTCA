@@ -15,6 +15,7 @@
 		49BA84C327F1B22000D86858 /* PokedexTCAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA84C227F1B22000D86858 /* PokedexTCAUITests.swift */; };
 		49BA84C527F1B22000D86858 /* PokedexTCAUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA84C427F1B22000D86858 /* PokedexTCAUITestsLaunchTests.swift */; };
 		49BA84D327F1B98800D86858 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 49BA84D227F1B98800D86858 /* ComposableArchitecture */; };
+		49BA84D527F1C23900D86858 /* PokeAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BA84D427F1C23900D86858 /* PokeAPIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		49BA84BE27F1B22000D86858 /* PokedexTCAUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokedexTCAUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49BA84C227F1B22000D86858 /* PokedexTCAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexTCAUITests.swift; sourceTree = "<group>"; };
 		49BA84C427F1B22000D86858 /* PokedexTCAUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexTCAUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		49BA84D427F1C23900D86858 /* PokeAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeAPIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				49BA84A727F1B21C00D86858 /* PokedexTCAApp.swift */,
 				49BA84A927F1B21C00D86858 /* ContentView.swift */,
+				49BA84D427F1C23900D86858 /* PokeAPIClient.swift */,
 				49BA84AB27F1B22000D86858 /* Assets.xcassets */,
 				49BA84AD27F1B22000D86858 /* Preview Content */,
 			);
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BA84D527F1C23900D86858 /* PokeAPIClient.swift in Sources */,
 				49BA84AA27F1B21C00D86858 /* ContentView.swift in Sources */,
 				49BA84A827F1B21C00D86858 /* PokedexTCAApp.swift in Sources */,
 			);
