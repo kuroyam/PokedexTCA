@@ -23,10 +23,13 @@ struct PokemonState: Equatable {
 let pokemonReducer = Reducer<PokemonState, PokemonAction, PokemonEnvironment> { state, action, environment in
     switch action {
     case .fetch(let id):
+        struct PokemonRequestID: Hashable {}
+
         return environment.pokeAPIClient
             .fetch(id)
             .receive(on: environment.mainQueue)
             .catchToEffect(PokemonAction.fetchResponse)
+            .cancellable(id: PokemonRequestID())
 
     case .fetchResponse(.success(let pokemon)):
         state.pokemon = pokemon

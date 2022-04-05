@@ -5,16 +5,26 @@ import SwiftUI
 struct PokedexTCAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(
+            PokemonListView(
                 store: Store(
-                    initialState: PokemonState(),
-                    reducer: pokemonReducer.debug(),
+                    initialState: PokemonListState(),
+                    reducer: pokemonListReducer.debug(),
                     environment: PokemonEnvironment(
                         pokeAPIClient: PokeAPIClient.live,
                         mainQueue: .main
                     )
                 )
             )
+//            ContentView(
+//                store: Store(
+//                    initialState: PokemonState(),
+//                    reducer: pokemonReducer.debug(),
+//                    environment: PokemonEnvironment(
+//                        pokeAPIClient: PokeAPIClient.live,
+//                        mainQueue: .main
+//                    )
+//                )
+//            )
         }
     }
 }
